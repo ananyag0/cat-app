@@ -43,7 +43,7 @@ function CatFacts() {
     <div className = 'container'>
       <button id = "fact"> {facts.fact} </button>
       <button className = "button" onClick = {fetchData}> Give me a fact! </button>
-      <p button = "facts-box">Here are your previously generated facts: </p>
+      <button id = "facts-box">Here are your previously generated facts: </button>
         {
             prev.filter((_, index) => index >= count && index < (count + 10)).map((previousFact, index) => {
                 return <div key={index}>
