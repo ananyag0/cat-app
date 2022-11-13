@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 function CatFacts() {
     const [facts, setFacts] = useState([]);
+    const [count, setCount] = useState(0);
     const [prev, setPrevious] = useState([]);
     const [fav, setFavorite] = useState(false);
-    const [count, setCount] = useState(0);
     const fetchData = async () => {
         const response = await fetch("https://catfact.ninja/fact");
         const data = await response.json();
@@ -44,14 +44,12 @@ function CatFacts() {
       <button id = "fact"> {facts.fact} </button>
       <button className = "button" onClick = {fetchData}> Give me a fact! </button>
       <button id = "facts-box">Here are your previously generated facts: </button>
-        {
-            prev.filter((_, index) => index >= count && index < (count + 10)).map((previousFact, index) => {
+        {prev.filter((_, index) => index >= count && index < (count + 10)).map((previousFact, index) => {
                 return <div key={index}>
                     <button id = {previousFact.favorite ? "favorite-fact" : "normal-fact"}>{previousFact.fact}</button>
                     <button id = "status" onClick={() => update(index)}>{previousFact.favorite ? "⭐" : "☆"}</button>
                 </div>
-            })
-        }
+            })}
         <div id = "buttons"> 
             <button id = "previous-facts-button" onClick={nextFacts}>◄</button>
             <button id = "next-facts-button" onClick={previousFacts}>►</button>
