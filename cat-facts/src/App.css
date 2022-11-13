@@ -14,17 +14,34 @@
     font-size: 25px;
     width: 100vw;
     height: 100vh;
-    
 }
 
 #fact {
   text-align: center;
 }
 
-#facts-list {
+#facts-box {
   background-color: white;
   border-radius: 10px;
   color: rgb(229, 149, 29);
+
+}
+
+#normal-fact {
+  display: inline;
+  border-radius: 10px;
+  border-color: white;
+  width: 600px;
+  color: white;
+  background-color: black;
+  font-size: 15px;
+  font-family:Arial, Helvetica, sans-serif;
+
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .button {
@@ -38,35 +55,4 @@
     border-radius: 10px;
     background-color: black;
     color: white;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

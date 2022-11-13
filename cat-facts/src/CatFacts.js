@@ -17,6 +17,14 @@ function CatFacts() {
         setFacts(data);
     };
 
+    const update = (index) => {
+        const copyArr = [...pFacts];
+        const element = copyArr[index];
+        copyArr[index] = element;
+        setPFacts(copyArr);
+        // TODO add something for favoriting facts
+    }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -25,7 +33,14 @@ function CatFacts() {
     <div className = 'container'>
       <p id = "fact"> {facts.fact} </p>
       <button className = "button" onClick = {fetchData}> Give me a fact! </button>
-      <p button = "facts-list">Here are your previously generated facts: </p>
+      <p button = "facts-box">Here are your previously generated facts: </p>
+        {
+            pFacts.filter((_, index) => index >= counter && index < (counter + 10)).map((previousFact, index) => {
+                return <div key={index}>
+                    <button id = "normal-fact">{previousFact.fact}</button>
+                </div>
+            })
+        }
     </div>
   );
 
