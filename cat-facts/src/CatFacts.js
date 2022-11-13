@@ -2,62 +2,59 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function CatFacts() {
-
-    let count =0;
     const [facts, setFacts] = useState([]);
-    const [pFacts, setPFacts] = useState([]);
+    const [prev, setPrevious] = useState([]);
     const [fav, setFavorite] = useState(false);
-    const [counter, setCounter] = useState(0);
+    const [count, setCount] = useState(0);
     const fetchData = async () => {
         const response = await fetch("https://catfact.ninja/fact");
         const data = await response.json();
         if (facts != null && facts.fact != null) {
-            pFacts.unshift({favorite: fav, fact: facts.fact});
+            prev.unshift({favorite: fav, fact: facts.fact});
             setFavorite(false);
         }
-        setPFacts(pFacts);
+        setPrevious(prev);
         setFacts(data);
     };
 
     const update = (index) => {
-        const copyArr = [...pFacts];
+        const copyArr = [...prev];
         const element = copyArr[index];
         element.favorite = !element.favorite;
         copyArr[index] = element;
-        setPFacts(copyArr);
+        setPrevious(copyArr);
     }
 
     const nextFacts = () => {
-        setCounter(Math.min(counter+10, pFacts.length - pFacts.length % 10));
+        setCount(Math.min(count+10, prev.length - prev.length % 10));
     }
     const previousFacts = () => {
-        setCounter(Math.max(0, counter-10));
+        setCount(Math.max(0, count-10));
     }
     const favorite = () => {
         setFavorite(true);
     }
 
   useEffect(() => {
-    count++;
     fetchData();
   }, []);
   return (
     
     <div className = 'container'>
-      <p id = "fact"> {facts.fact} </p>
+      <button id = "fact"> {facts.fact} </button>
       <button className = "button" onClick = {fetchData}> Give me a fact! </button>
       <p button = "facts-box">Here are your previously generated facts: </p>
         {
-            pFacts.filter((_, index) => index >= counter && index < (counter + 10)).map((previousFact, index) => {
+            prev.filter((_, index) => index >= count && index < (count + 10)).map((previousFact, index) => {
                 return <div key={index}>
                     <button id = {previousFact.favorite ? "favorite-fact" : "normal-fact"}>{previousFact.fact}</button>
-                    <button id = "status" onClick={() => update(index)}>{previousFact.favorite ? "Remove Favorite" : "Favorite"}</button>
+                    <button id = "status" onClick={() => update(index)}>{previousFact.favorite ? "⭐" : "☆"}</button>
                 </div>
             })
         }
         <div id = "buttons"> 
-            <button id = "previous-facts-button" onClick={nextFacts}>Last 10 facts</button>
-            <button id = "next-facts-button" onClick={previousFacts}>Next 10 facts</button>
+            <button id = "previous-facts-button" onClick={nextFacts}>◄</button>
+            <button id = "next-facts-button" onClick={previousFacts}>►</button>
         </div>
         
     </div>
