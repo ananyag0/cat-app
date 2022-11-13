@@ -21,6 +21,12 @@
   text-align: center;
 }
 
+#facts-list {
+  background-color: white;
+  border-radius: 10px;
+  color: rgb(229, 149, 29);
+}
+
 .button {
   font-size: 20px;
     padding-left: 15px;
