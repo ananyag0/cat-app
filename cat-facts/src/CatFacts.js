@@ -25,6 +25,13 @@ function CatFacts() {
         // TODO add something for favoriting facts
     }
 
+    const nextFacts = () => {
+        setCounter(Math.min(counter+10, pFacts.length - pFacts.length % 10));
+    }
+    const previousFacts = () => {
+        setCounter(Math.max(0, counter-10));
+    }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -41,6 +48,11 @@ function CatFacts() {
                 </div>
             })
         }
+        <div id = "buttons"> 
+            <button id = "next-facts-button" onClick={previousFacts}>Next 10 facts</button>
+            <button id = "previous-facts-button" onClick={nextFacts}>Last 10 facts</button>
+        </div>
+        
     </div>
   );
 
