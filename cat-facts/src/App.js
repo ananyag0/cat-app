@@ -1,28 +1,43 @@
-import React from "react";
-import {useState, useEffect} from "react";
+import React, { Component } from "react";
+import CatFacts from './CatFacts';
+import './App.css';
 
-// import logo from './logo.svg';
-// import './App.css';
-
-function CatFacts() {
-  const [facts, setFacts] = useState([]);
-  const fetchData = async () => {
-    const response = await fetch("https://catfact.ninja/fact");
-    const data = await response.json();
-    setFacts(data);
-    console.log(data);
-
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+function App() {
   return (
-    <div className = "container">
-      <p> {facts.text} </p>
-      <button onClick = {fetchData}> Give me a fact </button>
+    <div className="App">
+     <h1>Cat Facts</h1>
+     <p style={{fontWeight: 'bold'}}>Current Fact</p>
+     <CatFacts/>
     </div>
   );
 }
 
-export default CatFacts;
+export default App;
+
+// function CatFacts() {
+//   const [facts, setFacts] = useState([]);
+//   const fetchData = async () => {
+//     const response = await fetch("https://catfact.ninja/fact");
+//     const data = await response.json();
+//     setFacts(data);
+//     const printOut = data.fact;
+//     // console.log(facts);
+//     var array = {...facts, data.facts};
+//    console.log(data);
+
+//   };
+
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+//   return (
+    
+//     <div className = 'container'>
+//       <p id = "fact"> {facts.fact} </p>
+//       <button className = "button" onClick = {fetchData}> Give me a fact </button>
+//     </div>
+//   );
+// }
+
+
+// export default CatFacts;
