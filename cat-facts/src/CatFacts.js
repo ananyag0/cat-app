@@ -2,16 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function CatFacts() {
+
+    let count =0;
     const [facts, setFacts] = useState([]);
     const [pFacts, setPFacts] = useState([]);
-    const [fav, setFav] = useState(false);
+    const [fav, setFavorite] = useState(false);
     const [counter, setCounter] = useState(0);
     const fetchData = async () => {
         const response = await fetch("https://catfact.ninja/fact");
         const data = await response.json();
         if (facts != null && facts.fact != null) {
             pFacts.unshift({favorite: fav, fact: facts.fact});
-            setFav(false);
+            setFavorite(false);
         }
         setPFacts(pFacts);
         setFacts(data);
@@ -20,9 +22,9 @@ function CatFacts() {
     const update = (index) => {
         const copyArr = [...pFacts];
         const element = copyArr[index];
+        element.favorite = !element.favorite;
         copyArr[index] = element;
         setPFacts(copyArr);
-        // TODO add something for favoriting facts
     }
 
     const nextFacts = () => {
@@ -31,8 +33,12 @@ function CatFacts() {
     const previousFacts = () => {
         setCounter(Math.max(0, counter-10));
     }
+    const favorite = () => {
+        setFavorite(true);
+    }
 
   useEffect(() => {
+    count++;
     fetchData();
   }, []);
   return (
@@ -44,18 +50,18 @@ function CatFacts() {
         {
             pFacts.filter((_, index) => index >= counter && index < (counter + 10)).map((previousFact, index) => {
                 return <div key={index}>
-                    <button id = "normal-fact">{previousFact.fact}</button>
+                    <button id = {previousFact.favorite ? "favorite-fact" : "normal-fact"}>{previousFact.fact}</button>
+                    <button id = "status" onClick={() => update(index)}>{previousFact.favorite ? "Remove Favorite" : "Favorite"}</button>
                 </div>
             })
         }
         <div id = "buttons"> 
-            <button id = "next-facts-button" onClick={previousFacts}>Next 10 facts</button>
             <button id = "previous-facts-button" onClick={nextFacts}>Last 10 facts</button>
+            <button id = "next-facts-button" onClick={previousFacts}>Next 10 facts</button>
         </div>
         
     </div>
   );
 
   }
-
   export default CatFacts;
